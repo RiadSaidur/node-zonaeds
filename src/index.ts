@@ -1,8 +1,9 @@
 import Express from 'express'
 import 'dotenv/config'
 import mongoose from 'mongoose'
-import { userRoutes } from './routes/public/user.routes'
+import { userRoutes } from './routes/private/user.routes'
 import { authRoutes } from './routes/public/auth.routes'
+import { auth_required } from './middleware/auth.middleware'
 
 const app = Express()
 const PORT = process.env.PORT || 5000
@@ -11,7 +12,7 @@ const PORT = process.env.PORT || 5000
 app.use(Express.json())
 
 // Routes
-app.use('/user', userRoutes)
+app.use('/user', auth_required, userRoutes)
 app.use('/auth', authRoutes)
 
 // MongoDB connection
