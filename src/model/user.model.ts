@@ -1,5 +1,6 @@
 import { compare } from "bcryptjs";
 import { model, Schema } from "mongoose";
+import { Role } from "../emuns/auth.enums";
 import { UserDocument } from "../interfaces/model.interface";
 
 const UserSchema = new Schema(
@@ -16,6 +17,10 @@ const UserSchema = new Schema(
     password: {
       type: String,
       required: true
+    },
+    role: {
+      type: String,
+      default: Role.CUSTOMER
     }
   }, 
   { timestamps: true }
@@ -26,6 +31,17 @@ UserSchema.methods.comparePassword = async function (password: string): Promise<
   try {
     const isAccepted = await compare(password, user.password)
     return isAccepted
+  } catch (error) {
+    console.log(error.message)
+    return false
+  }
+}
+
+UserSchema.methods.makeAdmin = function () {
+  const user = this as UserDocument
+  try {
+    user.role = Role.ADMIN
+    return true
   } catch (error) {
     console.log(error.message)
     return false

@@ -1,5 +1,16 @@
 import { Request } from "express";
+import { ObjectId } from "mongoose";
 
 export interface AuthenticatedRequest extends Request {
-  user: string;
+  user: {
+    uid: ObjectId;
+    email: string;
+    role: string;
+  }
+}
+
+export interface Token {
+  uid: ObjectId;
+  email: string;
+  role: string;
 }

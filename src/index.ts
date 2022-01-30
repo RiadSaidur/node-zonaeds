@@ -4,6 +4,8 @@ import mongoose from 'mongoose'
 import { userRoutes } from './routes/private/user.routes'
 import { authRoutes } from './routes/public/auth.routes'
 import { auth_required } from './middleware/auth.middleware'
+import { adminRoutes } from './routes/private/admin.routes'
+import { admin_only } from './middleware/role.middleware'
 
 const app = Express()
 const PORT = process.env.PORT || 5000
@@ -12,8 +14,9 @@ const PORT = process.env.PORT || 5000
 app.use(Express.json())
 
 // Routes
-app.use('/user', auth_required, userRoutes)
 app.use('/auth', authRoutes)
+app.use('/user', auth_required, userRoutes)
+app.use('/admin', auth_required, admin_only, adminRoutes)
 
 // MongoDB connection
 const mongodbURI = process.env.MONGODB_URI

@@ -1,11 +1,6 @@
 import { NextFunction, Response } from "express";
-import { JwtPayload, verify } from "jsonwebtoken";
-import { AuthenticatedRequest } from "../interfaces/auth.interface";
-
-const getEmailFromToken = (token: string): string => {
-  const decodedToken = verify(token, process.env.JWT_KEY) as JwtPayload
-  return decodedToken.email
-}
+import { AuthenticatedRequest, Token } from "../interfaces/auth.interface";
+import { getDecodedToken } from "../utils/auth.utils";
 
 export const auth_required = (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
   try {
@@ -13,13 +8,15 @@ export const auth_required = (req: AuthenticatedRequest, res: Response, next: Ne
     if(!headers.authorization) return res.status(401).json({ error: 'Access denined: Unauthoriozed' })
 
     const token = headers.authorization.split(' ')[1]
-    const email = getEmailFromToken(token)
+    const { email, role, uid } = getDecodedToken(token)
     if(!email) return res.status(401).json({ error: 'Access denined: Unauthoriozed' })
-    
-    req.user = email
+
+    req.user = {
+      email, role, uid
+    }
     next()
   } catch (error) {
-    console.log(error.message)
+    console.log(error)
     return res.status(401).json({ error: 'Access denined: Unauthoriozed' })
   }
 }

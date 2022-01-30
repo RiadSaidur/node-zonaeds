@@ -4,7 +4,7 @@ import { getUserProfile } from "../services/user.services"
 
 export const getTokenAndProfile = (user: UserDocument) => {
   const tokenAndProfile = {
-    token: createJWT(user.email),
+    token: createJWT(user),
     profile: getUserProfile(user)
   }
   return tokenAndProfile

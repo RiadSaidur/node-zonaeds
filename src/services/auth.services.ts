@@ -1,10 +1,11 @@
 import { genSalt, hash } from "bcryptjs"
 import { sign } from "jsonwebtoken"
+import { UserDocument } from "../interfaces/model.interface"
 import { User } from "../model/user.model"
 
-export const createJWT = (email: string): string => {
+export const createJWT = (user: UserDocument): string => {
   const JWTKey = process.env.JWT_KEY
-  return sign({ email }, JWTKey)
+  return sign({ email: user.email, uid: user._id, role: user.role }, JWTKey)
 }
 
 export const getHashedPassowrd = async (password: string): Promise<string> => {

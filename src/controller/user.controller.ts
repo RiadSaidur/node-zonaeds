@@ -5,7 +5,7 @@ import { getTokenAndProfile } from "../utils/user.utils"
 
 export const userProfile = async (req: AuthenticatedRequest, res: Response) => {
   try {
-    const user = await getUserByEmail(req.user)
+    const user = await getUserByEmail(req.user.email)
     if(!user) return res.status(404).json({ error: 'User does not exixts' })
     
     const profile = getTokenAndProfile(user)
