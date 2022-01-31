@@ -13,3 +13,14 @@ export const getAllProducts = async (req: Request, res: Response) => {
     return res.status(500).json({ error: 'Unable to get products'})
   }
 }
+
+export const getProductById = async (req: Request, res: Response) => {
+  try {
+    const { pid } = req.params
+    const product = await Product.findById(pid).populate('reviews').exec()
+    return res.status(200).json(product)
+  } catch (error) {
+    console.log(error)
+    return res.status(500).json({ error: 'Unable to get product'})
+  }
+}

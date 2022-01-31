@@ -16,12 +16,10 @@ export const addNewProducts = async (req: AuthenticatedRequest, res: Response) =
   }
 }
 
-export const deleteProduct = async (req: Request, res: Response) => {
+export const deleteProduct = async (req: AuthenticatedRequest, res: Response) => {
   try {
     const { pid } = req.params
-    console.log(pid)
     const product = await Product.findById(pid).remove().exec()
-    console.log(product)
     return res.status(202).json(product)
   } catch (error) {
     console.log(error)

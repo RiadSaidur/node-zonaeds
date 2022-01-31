@@ -55,10 +55,12 @@ const ProductSchema = new Schema(
       type: [String],
       required: true
     },
-    reviews: {
-      type: [Schema.Types.ObjectId],
-      default: []
-    }
+    reviews: [
+      {
+        type: Schema.Types.ObjectId,
+        default: []
+      }
+    ]
   },
   { timestamps: true }
 )
