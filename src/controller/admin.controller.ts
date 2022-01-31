@@ -1,4 +1,4 @@
-import { Response } from "express";
+import { Request, Response } from "express";
 import { AuthenticatedRequest } from "../interfaces/auth.interface";
 import { Product } from "../model/product.model";
 
@@ -13,5 +13,18 @@ export const addNewProducts = async (req: AuthenticatedRequest, res: Response) =
   } catch (error) {
     console.log(error)
     return res.status(500).json({ error: 'Unable to add new products'})
+  }
+}
+
+export const deleteProduct = async (req: Request, res: Response) => {
+  try {
+    const { pid } = req.params
+    console.log(pid)
+    const product = await Product.findById(pid).remove().exec()
+    console.log(product)
+    return res.status(202).json(product)
+  } catch (error) {
+    console.log(error)
+    return res.status(500).json({ error: 'Unable to delete product'})
   }
 }
