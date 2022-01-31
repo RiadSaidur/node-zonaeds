@@ -1,6 +1,7 @@
 import { Router } from "express";
-import { getProductList } from "../../controller/admin.controller";
+import { addNewProducts, getProductList } from "../../controller/admin.controller";
 
 export const adminRoutes = Router()
 
-adminRoutes.get('/', getProductList)
+adminRoutes.get('/products', getProductList)
+adminRoutes.post('/products', addNewProducts)
