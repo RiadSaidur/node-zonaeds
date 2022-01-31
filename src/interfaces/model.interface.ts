@@ -16,7 +16,7 @@ export interface ProductDocument extends Document {
   description: string;
   qty: number;
   variants: {
-    color: string[];
+    colors: string[];
     sizes: {
       lg: number;
       md: number;

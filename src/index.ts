@@ -6,6 +6,7 @@ import { authRoutes } from './routes/public/auth.routes'
 import { auth_required } from './middleware/auth.middleware'
 import { adminRoutes } from './routes/private/admin.routes'
 import { admin_only } from './middleware/role.middleware'
+import { productRoutes } from './routes/public/product.routes'
 
 const app = Express()
 const PORT = process.env.PORT || 5000
@@ -13,9 +14,12 @@ const PORT = process.env.PORT || 5000
 // Middleware
 app.use(Express.json())
 
-// Routes
+// Public Routes
+app.use('/', productRoutes)
 app.use('/auth', authRoutes)
+// Private Routes
 app.use('/user', auth_required, userRoutes)
+// Admin Routes
 app.use('/admin', auth_required, admin_only, adminRoutes)
 
 // MongoDB connection
