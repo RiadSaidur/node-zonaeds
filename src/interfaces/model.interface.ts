@@ -1,4 +1,4 @@
-import { Document, NumericTypes, ObjectId } from "mongoose";
+import { Document, ObjectId } from "mongoose";
 
 export interface UserDocument extends Document {
   name: string;
@@ -30,6 +30,14 @@ export interface ProductDocument extends Document {
   };
   categories: string[];
   reviews: ObjectId[];
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface ReviewDocument extends Document {
+  uid: ObjectId;
+  description: string;
+  rating: number;
   createdAt: Date;
   updatedAt: Date;
 }
