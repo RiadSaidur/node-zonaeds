@@ -9,6 +9,14 @@ export interface AuthenticatedRequest extends Request {
   }
 }
 
+export interface AuthPreferedRequest extends Request {
+  user: {
+    uid: ObjectId;
+    email: string;
+    role: string;
+  } | null;
+}
+
 export interface Token {
   uid: ObjectId;
   email: string;

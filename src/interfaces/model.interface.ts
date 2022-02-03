@@ -41,3 +41,13 @@ export interface ReviewDocument extends Document {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface OrderDocument extends Document {
+  uid: ObjectId;
+  pid: ObjectId;
+  qty: number;
+  sizes: string;
+  status: string;
+  createdAt: Date;
+  updatedAt: Date;
+}

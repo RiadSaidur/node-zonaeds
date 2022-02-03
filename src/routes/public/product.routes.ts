@@ -3,5 +3,5 @@ import { getAllProducts, getProductById } from "../../controller/product.control
 
 export const productRoutes = Router()
 
-productRoutes.get('/products', getAllProducts)
-productRoutes.get('/products/:pid', getProductById)
+productRoutes.get('/', getAllProducts)
+productRoutes.get('/:pid', getProductById)

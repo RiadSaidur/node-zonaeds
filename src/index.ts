@@ -3,10 +3,11 @@ import 'dotenv/config'
 import mongoose from 'mongoose'
 import { userRoutes } from './routes/private/user.routes'
 import { authRoutes } from './routes/public/auth.routes'
-import { auth_required } from './middleware/auth.middleware'
+import { auth_prefered, auth_required } from './middleware/auth.middleware'
 import { adminRoutes } from './routes/private/admin.routes'
 import { admin_only } from './middleware/role.middleware'
 import { productRoutes } from './routes/public/product.routes'
+import { orderRoutes } from './routes/public/order.routes'
 
 const app = Express()
 const PORT = process.env.PORT || 5000
@@ -15,8 +16,9 @@ const PORT = process.env.PORT || 5000
 app.use(Express.json())
 
 // Public Routes
-app.use('/', productRoutes)
 app.use('/auth', authRoutes)
+app.use('/products', productRoutes)
+app.use('/order', auth_prefered, orderRoutes)
 // Private Routes
 app.use('/user', auth_required, userRoutes)
 // Admin Routes
