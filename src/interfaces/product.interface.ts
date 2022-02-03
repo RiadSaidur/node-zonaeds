@@ -1,3 +1,5 @@
+import { ObjectId } from "mongoose";
+
 export interface ProductQuery {
   sort?: string;
   categories?: string;
@@ -15,4 +17,26 @@ export interface ProductQueryOptions {
 export interface Sort {
   sortBy: string;
   order: string;
+}
+
+export interface ProductUpdate {
+  $push?: {
+    categories?: string;
+    'variants.colors'?: string;
+  }
+  name?: string;
+  description?: string;
+  qty?: number;
+  variants?: {
+    sizes?: {
+      lg?: number;
+      md?: number;
+      sm?: number;
+    }
+  };
+  prices?: {
+    lg?: number;
+    md?: number;
+    sm?: number;
+  };
 }
