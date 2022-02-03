@@ -2,6 +2,7 @@ import { Response } from "express";
 import { ObjectId } from "mongoose";
 import { AuthPreferedRequest } from "../interfaces/auth.interface";
 import { Order } from "../model/order.model";
+import { updateOrderById } from "../services/order.services";
 
 export const placeOrder = async (req: AuthPreferedRequest, res: Response) => {
   try {
@@ -20,5 +21,17 @@ export const placeOrder = async (req: AuthPreferedRequest, res: Response) => {
   } catch (error) {
     console.log(error)
     return res.status(500).json({ error: 'Unable to place an order' })
+  }
+}
+
+export const cancelOrder = async (req: AuthPreferedRequest, res: Response) => {
+  try {
+    const { oid } = req.params
+    const cancel = { status: 'canceled' }
+    const canceledOrder = await updateOrderById(oid, cancel)
+    return res.status(200).json(canceledOrder)
+  } catch (error) {
+    console.log(error)
+    return res.status(500).json({ error: 'Unable to cancel an order' })
   }
 }
