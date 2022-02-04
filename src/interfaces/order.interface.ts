@@ -5,3 +5,14 @@ export interface OrderUpdate {
   sizes?: string;
   status?: string;
 }
+
+export interface OrderQuery {
+  sort?: string;
+  status?: string;
+  pid?: ObjectId;
+}
+
+export interface OrderQueryOptions {
+  status?: string;
+  pid?: ObjectId;
+}

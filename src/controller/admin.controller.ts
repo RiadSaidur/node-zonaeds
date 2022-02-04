@@ -2,8 +2,10 @@ import { Request, Response } from "express";
 import { AuthenticatedRequest } from "../interfaces/auth.interface";
 import { ProductDocument } from "../interfaces/model.interface";
 import { ProductUpdate } from "../interfaces/product.interface";
+import { Order } from "../model/order.model";
 import { Product } from "../model/product.model";
 import { updateProductById } from "../services/product.services";
+import { getOrderQueryOptions } from "../utils/order.utils";
 import { getUpdatableFields } from "../utils/product.utils";
 
 export const getProductList = (req: AuthenticatedRequest, res: Response) => {
@@ -40,6 +42,18 @@ export const updateProduct = async (req: AuthenticatedRequest, res: Response) =>
     return res.status(202).json(updatedProduct)
   } catch (error) {
     console.log(error)
-    return res.status(500).json({ error: 'Unable to update product'})
+    return res.status(500).json({ error: 'Unable to update product' })
+  }
+}
+
+export const getAllOrders = async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const { query } = req
+    const { sort, queryOptions } = getOrderQueryOptions(query)
+    const orders = await Order.find(queryOptions).sort({ [sort.sortBy]: sort.order }).exec()
+    return res.status(200).json(orders)
+  } catch (error) {
+    console.log(error)
+    return res.status(500).json({ error: 'Unable to get all orders' })
   }
 }
