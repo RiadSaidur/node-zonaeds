@@ -29,4 +29,16 @@ const OrderSchema = new Schema(
   { timestamps: true }
 )
 
+OrderSchema.methods.updateStatus = function (status: string) {
+  try {
+    const order = this as OrderDocument
+    order.status = status
+    order.save()
+    return true
+  } catch (error) {
+    console.log(error)
+    return false
+  }
+}
+
 export const Order = model<OrderDocument>('Order', OrderSchema)

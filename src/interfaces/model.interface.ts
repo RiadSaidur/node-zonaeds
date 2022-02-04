@@ -50,4 +50,5 @@ export interface OrderDocument extends Document {
   status: string;
   createdAt: Date;
   updatedAt: Date;
+  updateStatus(status: string): boolean;
 }

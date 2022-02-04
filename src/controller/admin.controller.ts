@@ -57,3 +57,17 @@ export const getAllOrders = async (req: AuthenticatedRequest, res: Response) => 
     return res.status(500).json({ error: 'Unable to get all orders' })
   }
 }
+
+export const updateOrderStatus = async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const { status } = req.query
+    const { oid } = req.params
+    const order = await Order.findById(oid)
+    if(!order) return res.status(404).json({ error: 'Order not found' })
+    order.updateStatus(status as string)
+    return res.status(200).json(order)
+  } catch (error) {
+    console.log(error)
+    return res.status(500).json({ error: 'Unable to get all orders' })
+  }
+}
