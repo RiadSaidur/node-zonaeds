@@ -50,7 +50,7 @@ export const getAllOrders = async (req: AuthenticatedRequest, res: Response) => 
   try {
     const { query } = req
     const { sort, queryOptions } = getOrderQueryOptions(query)
-    const orders = await Order.find(queryOptions).sort({ [sort.sortBy]: sort.order }).exec()
+    const orders = await Order.find(queryOptions).sort({ [sort.sortBy]: sort.order }).populate('products.pid').exec()
     return res.status(200).json(orders)
   } catch (error) {
     console.log(error)
@@ -68,6 +68,6 @@ export const updateOrderStatus = async (req: AuthenticatedRequest, res: Response
     return res.status(200).json(order)
   } catch (error) {
     console.log(error)
-    return res.status(500).json({ error: 'Unable to get all orders' })
+    return res.status(500).json({ error: 'Unable to update order' })
   }
 }

@@ -2,8 +2,8 @@ import { OrderDocument } from "../interfaces/model.interface";
 import { OrderQuery, OrderQueryOptions } from "../interfaces/order.interface";
 import { Sort } from "../interfaces/product.interface";
 
-export const getUpatableFields = ({ qty, sizes }: OrderDocument) => {
-  return { qty, sizes }
+export const getUpatableFields = ({ products }: OrderDocument) => {
+  return products.map(product => ({ qty: product.qty, sizes: product.sizes }))
 }
 
 export const getOrderQueryOptions = (queries: OrderQuery) => {

@@ -4,6 +4,6 @@ import { auth_required } from "../../middleware/auth.middleware";
 
 export const orderRoutes = Router()
 
-orderRoutes.post('/:pid', placeOrder)
+orderRoutes.post('/', placeOrder)
 orderRoutes.patch('/cancel/:oid', auth_required, cancelOrder)
 orderRoutes.patch('/update/:oid', auth_required, updateOrder)

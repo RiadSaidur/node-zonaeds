@@ -8,19 +8,21 @@ const OrderSchema = new Schema(
       ref: 'User',
       default: null
     },
-    pid: {
-      type: Schema.Types.ObjectId,
-      ref: 'Product',
-      required: true
-    },
-    qty: {
-      type: Number,
-      required: true
-    },
-    sizes: {
-      type: String,
-      required: true
-    },
+    products: [{
+      pid: {
+        type: Schema.Types.ObjectId,
+        ref: 'Product',
+        required: true
+      },
+      qty: {
+        type: Number,
+        required: true
+      },
+      sizes: {
+        type: String,
+        required: true
+      }
+    }],
     status: {
       type: String,
       default: 'pending'

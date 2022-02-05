@@ -44,9 +44,11 @@ export interface ReviewDocument extends Document {
 
 export interface OrderDocument extends Document {
   uid: ObjectId;
-  pid: ObjectId;
-  qty: number;
-  sizes: string;
+  products: {
+    pid: ObjectId;
+    qty: number;
+    sizes: string;
+  }[];
   status: string;
   createdAt: Date;
   updatedAt: Date;

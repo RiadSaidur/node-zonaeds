@@ -8,13 +8,10 @@ import { updateOrderById } from "../services/order.services";
 export const placeOrder = async (req: AuthPreferedRequest, res: Response) => {
   try {
     const user = req.user
-    const { pid } = req.params
-    const { qty, sizes } = req.body
+    const products = req.body
     const newOrder = {
       uid: null as ObjectId,
-      pid,
-      qty,
-      sizes
+      products
     }
     if(user) newOrder.uid = user.uid
     const order = await Order.create(newOrder)
@@ -30,6 +27,7 @@ export const cancelOrder = async (req: AuthenticatedRequest, res: Response) => {
     const { oid } = req.params
     const cancel = { status: 'canceled' }
     const canceledOrder = await updateOrderById(oid, cancel)
+    if(!canceledOrder) return res.status(404).json({ error: 'Order not found' })
     return res.status(200).json(canceledOrder)
   } catch (error) {
     console.log(error)
@@ -40,9 +38,10 @@ export const cancelOrder = async (req: AuthenticatedRequest, res: Response) => {
 export const updateOrder = async (req: AuthenticatedRequest, res: Response) => {
   try {
     const { oid } = req.params
-    const { qty, sizes } = req.body as OrderUpdate
-    const updatingFields = { qty, sizes }
+    const { products } = req.body as OrderUpdate
+    const updatingFields = { products }
     const updatedOrder = await updateOrderById(oid, updatingFields)
+    if(!updatedOrder) return res.status(404).json({ error: 'Order not found' })
     return res.status(200).json(updatedOrder)
   } catch (error) {
     console.log(error)
