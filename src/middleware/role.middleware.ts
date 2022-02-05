@@ -1,5 +1,5 @@
 import { NextFunction, Response } from "express";
-import { Role } from "../emuns/auth.enums";
+import { Role } from "../enums/auth.enums";
 import { AuthenticatedRequest } from "../interfaces/auth.interface";
 
 export const admin_only = (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
