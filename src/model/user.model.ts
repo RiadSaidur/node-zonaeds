@@ -1,6 +1,6 @@
 import { compare } from "bcryptjs";
 import { model, Schema } from "mongoose";
-import { Role } from "../emuns/auth.enums";
+import { Role } from "../enums/auth.enums";
 import { UserDocument } from "../interfaces/model.interface";
 
 const UserSchema = new Schema(
