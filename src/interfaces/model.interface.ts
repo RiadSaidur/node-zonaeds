@@ -14,6 +14,7 @@ export interface UserDocument extends Document {
 export interface ProductDocument extends Document {
   name: string;
   description: string;
+  images: string[];
   qty: number;
   variants: {
     colors: string[];

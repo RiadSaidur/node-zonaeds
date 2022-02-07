@@ -1,5 +1,5 @@
 import { NextFunction, Response } from "express";
-import { AuthenticatedRequest, AuthPreferedRequest, Token } from "../interfaces/auth.interface";
+import { AuthenticatedRequest, AuthPreferedRequest } from "../interfaces/auth.interface";
 import { getDecodedToken } from "../utils/auth.utils";
 
 export const auth_required = (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
