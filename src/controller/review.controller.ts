@@ -21,3 +21,21 @@ export const addReview = async (req: AuthenticatedRequest, res: Response) => {
     return res.status(500).json({ error: 'Unable to add review'})
   }
 }
+
+export const deleteReview = async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const { pid } = req.params
+    const { rid } = req.query
+
+    const review = await Review.findById(rid)
+    if(!review) return res.status(404).json({ error: 'Review does not exixts' })
+    await review.deleteOne()
+
+    const product = await Product.findById(pid).updateOne({ $pull: { reviews: rid } })
+
+    return res.status(201).json(product)
+  } catch (error) {
+    console.log(error)
+    return res.status(500).json({ error: 'Unable to add review'})
+  }
+}
