@@ -5,6 +5,7 @@ export interface OrderUpdate {
     qty: number;
     sizes: string;
   }[];
+  address?: string;
   status?: string;
 }
 

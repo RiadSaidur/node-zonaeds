@@ -8,10 +8,11 @@ import { updateOrderById } from "../services/order.services";
 export const placeOrder = async (req: AuthPreferedRequest, res: Response) => {
   try {
     const user = req.user
-    const products = req.body
+    const { products, address } = req.body
     const newOrder = {
       uid: null as ObjectId,
-      products
+      products,
+      address
     }
     if(user) newOrder.uid = user.uid
     const order = await Order.create(newOrder)
@@ -38,8 +39,8 @@ export const cancelOrder = async (req: AuthenticatedRequest, res: Response) => {
 export const updateOrder = async (req: AuthenticatedRequest, res: Response) => {
   try {
     const { oid } = req.params
-    const { products } = req.body as OrderUpdate
-    const updatingFields = { products }
+    const { products, address } = req.body as OrderUpdate
+    const updatingFields = { products, address }
     const updatedOrder = await updateOrderById(oid, updatingFields)
     if(!updatedOrder) return res.status(404).json({ error: 'Order not found' })
     return res.status(200).json(updatedOrder)

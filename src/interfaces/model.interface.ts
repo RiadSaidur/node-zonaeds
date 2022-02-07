@@ -50,6 +50,7 @@ export interface OrderDocument extends Document {
     sizes: string;
   }[];
   status: string;
+  address: string;
   createdAt: Date;
   updatedAt: Date;
   updateStatus(status: string): boolean;

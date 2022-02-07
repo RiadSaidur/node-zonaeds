@@ -26,6 +26,10 @@ const OrderSchema = new Schema(
     status: {
       type: String,
       default: 'pending'
+    },
+    address: {
+      type: String,
+      required: true
     }
   },
   { timestamps: true }
