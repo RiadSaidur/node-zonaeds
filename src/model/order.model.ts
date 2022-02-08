@@ -1,5 +1,6 @@
 import { model, Schema } from "mongoose";
-import { OrderDocument } from "../interfaces/model.interface";
+import { OrderDocument, ProductDocument } from "../interfaces/model.interface";
+import { Product } from "./product.model";
 
 const OrderSchema = new Schema(
   {
@@ -23,6 +24,10 @@ const OrderSchema = new Schema(
         required: true
       }
     }],
+    total: {
+      type: Number,
+      default: 0
+    },
     status: {
       type: String,
       default: 'pending'
@@ -46,5 +51,16 @@ OrderSchema.methods.updateStatus = function (status: string) {
     return false
   }
 }
+
+OrderSchema.pre('save', async function (next) {
+  const order = await this.populate('products.pid') as OrderDocument
+  const total = order.products.reduce((currentTotal, product) => {
+    const currentProduct = product.pid as unknown as ProductDocument
+    const size = product.sizes as keyof typeof currentProduct.prices
+    return currentTotal + currentProduct.prices[size] * product.qty
+  }, 0)
+  order.total = total
+  next()
+})
 
 export const Order = model<OrderDocument>('Order', OrderSchema)

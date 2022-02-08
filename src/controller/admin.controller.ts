@@ -1,7 +1,6 @@
-import { Request, Response } from "express";
+import { Response } from "express";
+import { ObjectId, Types } from "mongoose";
 import { AuthenticatedRequest } from "../interfaces/auth.interface";
-import { ProductDocument } from "../interfaces/model.interface";
-import { ProductUpdate } from "../interfaces/product.interface";
 import { Order } from "../model/order.model";
 import { Product } from "../model/product.model";
 import { updateProductById } from "../services/product.services";
@@ -11,7 +10,7 @@ import { getUpdatableFields } from "../utils/product.utils";
 export const getProductList = (req: AuthenticatedRequest, res: Response) => {
   return res.status(200).json({ okay: 'okay'})
 }
-
+// TODO: ADD IMAGES
 export const addNewProducts = async (req: AuthenticatedRequest, res: Response) => {
   try {
     const products = await Product.create(req.body)
@@ -69,5 +68,24 @@ export const updateOrderStatus = async (req: AuthenticatedRequest, res: Response
   } catch (error) {
     console.log(error)
     return res.status(500).json({ error: 'Unable to update order' })
+  }
+}
+
+export const getTotalOrderPrice = async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const total = await Order.aggregate([
+      {
+        $group: {
+          _id: '$status',
+          total: {
+            $sum: '$total'
+          }
+        }
+      }
+    ])
+    return res.status(200).json(total)
+  } catch (error) {
+    console.log(error)
+    return res.status(500).json({ error: 'Unable get total order' })
   }
 }

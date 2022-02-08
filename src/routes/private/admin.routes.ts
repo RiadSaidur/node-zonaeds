@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { addNewProducts, deleteProduct, getAllOrders, getProductList, updateOrderStatus, updateProduct } from "../../controller/admin.controller";
+import { addNewProducts, deleteProduct, getAllOrders, getProductList, getTotalOrderPrice, updateOrderStatus, updateProduct } from "../../controller/admin.controller";
 
 export const adminRoutes = Router()
 
@@ -10,3 +10,4 @@ adminRoutes.patch('/products/:pid', updateProduct)
 
 adminRoutes.get('/orders', getAllOrders)
 adminRoutes.patch('/orders/:oid', updateOrderStatus)
+adminRoutes.get('/orders/total/', getTotalOrderPrice)

@@ -50,6 +50,7 @@ export interface OrderDocument extends Document {
     qty: number;
     sizes: string;
   }[];
+  total: number;
   status: string;
   address: string;
   createdAt: Date;
