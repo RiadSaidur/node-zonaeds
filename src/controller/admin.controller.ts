@@ -73,10 +73,11 @@ export const updateOrderStatus = async (req: AuthenticatedRequest, res: Response
 
 export const getTotalOrderPrice = async (req: AuthenticatedRequest, res: Response) => {
   try {
+    const { totalBy } = req.query
     const total = await Order.aggregate([
       {
         $group: {
-          _id: '$status',
+          _id: `$${totalBy}`,
           total: {
             $sum: '$total'
           }
