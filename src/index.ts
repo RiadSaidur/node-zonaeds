@@ -14,6 +14,7 @@ const PORT = process.env.PORT || 5000
 
 // Middleware
 app.use(Express.json())
+app.use('/images', Express.static('uploads'));
 
 // Public Routes
 app.use('/auth', authRoutes)
