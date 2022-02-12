@@ -11,6 +11,12 @@ const ReviewSchema = new Schema(
       type: String,
       required: true
     },
+    images: [
+      {
+        type: String,
+        default: []
+      }
+    ],
     rating: {
       type: Number,
       required: function () { return this.score > 0 && this.score < 5 }

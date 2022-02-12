@@ -38,6 +38,7 @@ export interface ProductDocument extends Document {
 export interface ReviewDocument extends Document {
   uid: ObjectId;
   description: string;
+  images: string[];
   rating: number;
   createdAt: Date;
   updatedAt: Date;
