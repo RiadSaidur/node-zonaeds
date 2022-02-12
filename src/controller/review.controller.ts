@@ -1,4 +1,5 @@
 import { Response } from "express";
+import { ObjectId } from "mongoose";
 import { AuthenticatedRequest } from '../interfaces/auth.interface'
 import { Product } from "../model/product.model";
 import { Review } from "../model/review.model";
@@ -48,10 +49,12 @@ export const deleteReview = async (req: AuthenticatedRequest, res: Response) => 
     const { rid } = req.query
 
     const review = await Review.findById(rid)
-    if(!review) return res.status(404).json({ error: 'Review does not exixts' })
+
+    if(!review) return res.status(403).json({ error: 'Review does not exixts' })
+    if(String(review.uid) !== String(req.user.uid)) return res.status(404).json({ error: 'Access denined: Unauthoriozed' })
+
     deleteImageFromStorage('review-images', review.images)
     await review.deleteOne()
-    
 
     const product = await Product.findById(pid).updateOne({ $pull: { reviews: rid } })
 
