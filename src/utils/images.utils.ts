@@ -5,6 +5,6 @@ export const getImageURLs = (images: Express.Multer.File[]) => {
   return imageURLs
 }
 
-export const deleteImageFromStorage = (image: string) => {
-  unlinkSync(`uploads/${image}`)
+export const deleteImageFromStorage = (folder: string, images: string[]) => {
+  images.forEach(image => unlinkSync(`uploads/${folder}/${image}`))
 }

@@ -41,7 +41,7 @@ export const deleteProductImage = async (req: AuthenticatedRequest, res: Respons
     product.images = product.images.filter(image => image !== remove)
     product.save()
 
-    deleteImageFromStorage(remove)
+    deleteImageFromStorage('product-image', [remove])
 
     return res.status(200).json(product)
   } catch (error) {

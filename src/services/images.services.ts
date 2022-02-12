@@ -3,10 +3,10 @@ import { extname } from "path/posix";
 
 const storage = multer.diskStorage({
   destination: (req, file, callback) => {
-    callback(null, 'uploads')
+    callback(null, `uploads/${file.fieldname}`)
   },
   filename: (req, file, callback) => {
-    callback(null, `${file.filename}-${Date.now()}-${extname(file.originalname)}`)
+    callback(null, `${file.fieldname}-${Date.now()}-${extname(file.originalname)}`)
   }
 })
 
