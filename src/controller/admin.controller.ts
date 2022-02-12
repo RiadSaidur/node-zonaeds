@@ -15,6 +15,7 @@ export const uploadProductImage = async (req: AuthenticatedRequest, res: Respons
   try {
     const { pid } = req.params
     const product = await Product.findById(pid)
+    
     if(!product) return res.status(404).json({ error: 'Product does not exixts' })
 
     const imageURLs = getImageURLs(req.files as Express.Multer.File[])
@@ -26,6 +27,24 @@ export const uploadProductImage = async (req: AuthenticatedRequest, res: Respons
   } catch (error) {
     console.log(error)
     return res.status(500).json({ error: 'Unable to upload product images' })
+  }
+}
+
+export const deleteProductImage = async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const { pid } = req.params
+    const { remove } = req.query
+    const product = await Product.findById(pid)
+    
+    if(!product) return res.status(404).json({ error: 'Product does not exixts' })
+    
+    product.images = product.images.filter(image => image !== remove)
+    product.save()
+
+    return res.status(200).json(product)
+  } catch (error) {
+    console.log(error)
+    return res.status(500).json({ error: 'Unable to delete product images' })
   }
 }
 
