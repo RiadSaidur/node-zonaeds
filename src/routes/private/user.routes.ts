@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { addReview, addReviewImages, deleteReview } from "../../controller/review.controller";
 import { userProfile } from "../../controller/user.controller";
-import { upload } from "../../services/images.services";
+import { upload } from "../../middleware/images.middleware";
 
 export const userRoutes = Router()
 

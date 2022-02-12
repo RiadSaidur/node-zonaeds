@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { addNewProducts, deleteProduct, deleteProductImage, getAllOrders, getProductList, getTotalOrderPrice, updateOrderStatus, updateProduct, uploadProductImage } from "../../controller/admin.controller";
-import { upload } from "../../services/images.services";
+import { upload } from "../../middleware/images.middleware";
 
 export const adminRoutes = Router()
 
