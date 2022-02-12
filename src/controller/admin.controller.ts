@@ -2,8 +2,8 @@ import { Response } from "express";
 import { AuthenticatedRequest } from "../interfaces/auth.interface";
 import { Order } from "../model/order.model";
 import { Product } from "../model/product.model";
-import { getImageURLs } from "../services/images.services";
 import { updateProductById } from "../services/product.services";
+import { deleteImageFromStorage, getImageURLs } from "../utils/images.utils";
 import { getOrderQueryOptions } from "../utils/order.utils";
 import { getUpdatableFields } from "../utils/product.utils";
 
@@ -33,13 +33,15 @@ export const uploadProductImage = async (req: AuthenticatedRequest, res: Respons
 export const deleteProductImage = async (req: AuthenticatedRequest, res: Response) => {
   try {
     const { pid } = req.params
-    const { remove } = req.query
+    const remove = req.query.remove as string
     const product = await Product.findById(pid)
     
     if(!product) return res.status(404).json({ error: 'Product does not exixts' })
     
     product.images = product.images.filter(image => image !== remove)
     product.save()
+
+    deleteImageFromStorage(remove)
 
     return res.status(200).json(product)
   } catch (error) {

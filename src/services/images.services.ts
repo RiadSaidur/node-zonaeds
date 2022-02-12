@@ -24,8 +24,3 @@ export const upload = multer({
     }
   }
 })
-
-export const getImageURLs = (images: Express.Multer.File[]) => {
-  const imageURLs = images.map(image => `${process.env.BASE_URL}/images/${image.filename}`)
-  return imageURLs
-}
