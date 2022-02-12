@@ -2,7 +2,7 @@ import { Response } from "express";
 import { AuthenticatedRequest } from '../interfaces/auth.interface'
 import { Product } from "../model/product.model";
 import { Review } from "../model/review.model";
-import { getImageURLs } from "../utils/images.utils";
+import { deleteImageFromStorage, getImageURLs } from "../utils/images.utils";
 
 export const addReviewImages = async (req: AuthenticatedRequest, res: Response) => {
   try {
@@ -49,7 +49,9 @@ export const deleteReview = async (req: AuthenticatedRequest, res: Response) => 
 
     const review = await Review.findById(rid)
     if(!review) return res.status(404).json({ error: 'Review does not exixts' })
+    deleteImageFromStorage('review-images', review.images)
     await review.deleteOne()
+    
 
     const product = await Product.findById(pid).updateOne({ $pull: { reviews: rid } })
 
