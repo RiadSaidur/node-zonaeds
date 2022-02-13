@@ -1,0 +1,28 @@
+### ADD: REVIEW
+POST http://localhost:5000/user/review/61f799b24f1927c6eddbd090 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhlbGxvQHdvcmxkLmNvbSIsInVpZCI6IjYxZjY0MmY2YzA2NmIzNGY4YTgwZDUyZSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTY0MzUzMjEyMH0.aMP-j2XMd0C8gMxUvrsHHv5RvUSXV-N226t8tvnagTg
+
+{
+  "description": "Bojja Mouse",
+  "rating": 5
+}
+
+### ADD: REVIEW IMAGES
+POST http://localhost:5000/admin/products/images/61f799b24f1927c6eddbd090
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="review-images"
+
+title
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="review-images"; filename="1.png"
+Content-Type: image/png
+
+< ./1.png
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+### DELETE: REVIEW
+DELETE http://localhost:5000/user/review/61f799b24f1927c6eddbd08f?rid=6200cc7c825692a927a0089e HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhlbGxvQHdvcmxkLmNvbSIsInVpZCI6IjYxZjY0MmY2YzA2NmIzNGY4YTgwZDUyZSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTY0MzUzMjEyMH0.aMP-j2XMd0C8gMxUvrsHHv5RvUSXV-N226t8tvnagTg

@@ -1,0 +1,97 @@
+### ADD: NEW PRODUCTS
+POST http://localhost:5000/admin/products HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhlbGxvQHdvcmxkLmNvbSIsInVpZCI6IjYxZjY0MmY2YzA2NmIzNGY4YTgwZDUyZSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTY0NDA2NDE4NX0.q47VGru1KV7RDNa9cAg0u0_yFgIw1x3_QPVhT15n_a4
+
+[
+  {
+    "name": "TEST 100 Huge Mouse",
+    "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+    "qty": 20,
+    "variants": {
+      "colors": [
+        "yellow", "blue", "black", "indigo"
+      ],
+      "sizes": {
+        "lg": 5,
+        "md": 10,
+        "sm": 5
+      }
+    },
+    "prices": {
+      "lg": 500,
+      "md": 300,
+      "sm": 100
+    },
+    "categories": [
+      "computer", "accessories", "indur"
+    ]
+  }
+]
+
+### ADD: PRODUCT IMAGES
+POST http://localhost:5000/admin/products/images/61f799b24f1927c6eddbd090
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="product-image"
+
+title
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="product-image"; filename="1.png"
+Content-Type: image/png
+
+< ./1.png
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+## DELETE: PRODUCT IMAGES
+DELETE http://localhost:5000/admin/products/images/61f799b24f1927c6eddbd090?remove=compressed-product-image-1644740915599-.png HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhlbGxvQHdvcmxkLmNvbSIsInVpZCI6IjYxZjY0MmY2YzA2NmIzNGY4YTgwZDUyZSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTY0NDA2NDE4NX0.q47VGru1KV7RDNa9cAg0u0_yFgIw1x3_QPVhT15n_a4
+
+### DELETE: PRODUCT
+DELETE http://localhost:5000/admin/products/61f7e227b31bd0498227d91f HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhlbGxvQHdvcmxkLmNvbSIsInVpZCI6IjYxZjY0MmY2YzA2NmIzNGY4YTgwZDUyZSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTY0MzUzMjEyMH0.aMP-j2XMd0C8gMxUvrsHHv5RvUSXV-N226t8tvnagTg
+
+### GET: ALL PRODUCTS
+GET http://localhost:5000/products?categories=indur&colors=black&sort=prices.lg,asc HTTP/1.1
+
+### GET: PRODUCT BY ID
+GET http://localhost:5000/products/61f7e227b31bd0498227d920 HTTP/1.1
+
+### UPDATE: PRODUCT
+PATCH http://localhost:5000/admin/products/61f7e227b31bd0498227d920 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhlbGxvQHdvcmxkLmNvbSIsInVpZCI6IjYxZjY0MmY2YzA2NmIzNGY4YTgwZDUyZSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTY0MzUzMjEyMH0.aMP-j2XMd0C8gMxUvrsHHv5RvUSXV-N226t8tvnagTg
+
+{
+  "variants": {
+    "sizes": {
+      "lg": 5,
+      "md": 10,
+      "sm": 5
+    },
+    "colors": [
+      "yellow",
+      "blue",
+      "black"
+    ]
+  },
+  "prices": {
+    "lg": 600,
+    "md": 400,
+    "sm": 150
+  },
+  "_id": "61f7e227b31bd0498227d920",
+  "name": "Update now TEST 2 Huge Mouse",
+  "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+  "qty": 20,
+  "categories": [
+    "computer",
+    "accessories",
+    "indur"
+  ],
+  "reviews": [],
+  "createdAt": "2022-01-31T13:20:39.350Z",
+  "updatedAt": "2022-01-31T13:20:39.350Z",
+  "__v": 0
+}

@@ -1,0 +1,22 @@
+### SIGN UP
+POST http://localhost:5000/auth/signup HTTP/1.1
+content-type: application/json
+
+{
+  "name": "chinku",
+  "email": "hello@meow.com",
+  "password": "##something123##"
+}
+
+### SIGN IN
+POST http://localhost:5000/auth/signin HTTP/1.1
+content-type: application/json
+
+{
+  "email": "hello@meow.com",
+  "password": "##something123##"
+}
+
+### GET: USER INFO
+GET http://localhost:5000/user HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhlbGxvQHdvcmxkLmNvbSIsImlhdCI6MTY0MzQ0MDUxMn0.USd9oGiqlZhSjDcZd6putvz2DLfPxFQpfU_JuVndx7c
