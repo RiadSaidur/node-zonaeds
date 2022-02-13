@@ -3,7 +3,7 @@ import { AuthenticatedRequest } from "../interfaces/auth.interface";
 import { Order } from "../model/order.model";
 import { Product } from "../model/product.model";
 import { updateProductById } from "../services/product.services";
-import { deleteImageFromStorage, getImageURLs } from "../utils/images.utils";
+import { deleteImageFromStorage, getCompressedImageNames } from "../utils/images.utils";
 import { getOrderQueryOptions } from "../utils/order.utils";
 import { getUpdatableFields } from "../utils/product.utils";
 
@@ -18,7 +18,7 @@ export const uploadProductImage = async (req: AuthenticatedRequest, res: Respons
     
     if(!product) return res.status(404).json({ error: 'Product does not exixts' })
 
-    const imageURLs = getImageURLs(req.files as Express.Multer.File[])
+    const imageURLs = getCompressedImageNames('product-image', req.files as Express.Multer.File[])
     
     product.images.push(...imageURLs)
     product.save()

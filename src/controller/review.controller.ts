@@ -3,7 +3,7 @@ import { ObjectId } from "mongoose";
 import { AuthenticatedRequest } from '../interfaces/auth.interface'
 import { Product } from "../model/product.model";
 import { Review } from "../model/review.model";
-import { deleteImageFromStorage, getImageURLs } from "../utils/images.utils";
+import { deleteImageFromStorage, getCompressedImageNames } from "../utils/images.utils";
 
 export const addReviewImages = async (req: AuthenticatedRequest, res: Response) => {
   try {
@@ -12,7 +12,7 @@ export const addReviewImages = async (req: AuthenticatedRequest, res: Response) 
     
     if(!review) return res.status(404).json({ error: 'Review does not exists'})
 
-    const imageURLs = getImageURLs(req.files as Express.Multer.File[])
+    const imageURLs = getCompressedImageNames('review-images', req.files as Express.Multer.File[])
     review.images.push(...imageURLs)
     review.save()
 
